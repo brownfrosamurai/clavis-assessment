@@ -4,6 +4,7 @@ const path = require('path')
 require('dotenv').config()
 
 const { ApolloServer } = require('apollo-server-express')
+const { ApolloServerPluginLandingPageLocalDefault } = require('apollo-server-core');
 
 const { loadFilesSync } = require('@graphql-tools/load-files')
 const { makeExecutableSchema } = require('@graphql-tools/schema')
@@ -26,6 +27,11 @@ async function startApolloServer() {
 
     const server = new ApolloServer({
         schema,
+        plugins: [
+            ApolloServerPluginLandingPageLocalDefault({
+                footer: false
+            })
+        ]
     })
 
     await server.start()
