@@ -1,6 +1,8 @@
 const express = require('express')
 const path = require('path')
 
+require('dotenv').config()
+
 const { ApolloServer } = require('apollo-server-express')
 
 const { loadFilesSync } = require('@graphql-tools/load-files')
@@ -11,6 +13,8 @@ const typesArray = loadFilesSync(path.join(__dirname, '**/*.graphql'))
 
 // Load resolver functions 
 const resolversArray = loadFilesSync(path.join(__dirname, '**/*.resolvers.js'))
+
+const PORT = process.env.PORT || 3000
 
 async function startApolloServer() {
     const app = express()
@@ -27,7 +31,7 @@ async function startApolloServer() {
     await server.start()
     server.applyMiddleware({ app, path: '/graphql' })
 
-    app.listen(3000, () => {
+    app.listen(PORT, () => {
         console.log(`Running Graphql Server`)
     })
 }
