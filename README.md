@@ -1,0 +1,1 @@
+This application was bootstraped with #npm start
